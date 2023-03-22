@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tile{
+    @apply bg-blue-400 opacity-40 h-full w-full;
+}
+
+.tile:hover{
+    @apply opacity-100
+}
