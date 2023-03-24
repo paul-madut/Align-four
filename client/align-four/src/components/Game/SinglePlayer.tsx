@@ -3,7 +3,7 @@ import GameWindow from './GameWindow';
 
 function SinglePlayer() {
     return (
-        <div className=' bg-blue-700 h-screen w-full flex justify-center pt-10'>
+        <div className=' bg-white h-screen w-full flex justify-center pt-10'>
         <GameWindow></GameWindow>
 
         </div>
