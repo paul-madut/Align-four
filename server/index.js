@@ -2,12 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const userModel = require("./models/Users");
+require("dotenv").config();
 
 const app = express();
 
 const uri =
   "mongodb+srv://pmadut2003:Testdb123@nextapp.agerivi.mongodb.net/align-four";
-const port = 3001;
+const port = process.env.PORT;
 
 main();
 
