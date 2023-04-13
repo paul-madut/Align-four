@@ -9,25 +9,7 @@ const app = express();
 const uri =
   "mongodb+srv://pmadut2003:Testdb123@nextapp.agerivi.mongodb.net/align-four";
 const port = process.env.PORT;
-
 main();
-
-async function addFluffy() {
-  const fluffy = new userModel({
-    name: "fluffy",
-    userName: "padhduhd",
-    email: "chdaiuyhaiku@gmail.com",
-    score: [0, 0, 0],
-  });
-  await fluffy
-    .save()
-    .then(() => {
-      console.log("added user");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
 
 app.use(cors());
 app.use(express.json());
@@ -49,7 +31,10 @@ app.get("/getAllUsers", (req, res) => {
     });
 });
 
-addFluffy();
+app.post("/api/register", (req, res) => {
+  console.log(req.body);
+  res.json({ status: "ok" });
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
