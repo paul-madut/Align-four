@@ -10,7 +10,7 @@ function Register() {
 
   async function registerUser(e:any){
     e.preventDefault();
-    const response:any = await fetch('http://localhost:3000/api/users/register', {
+    const response:any = await fetch('http://localhost:3001/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

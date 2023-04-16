@@ -5,35 +5,40 @@ const userModel = require("./models/Users");
 require("dotenv").config();
 
 const app = express();
-
-const uri =
-  "mongodb+srv://pmadut2003:Testdb123@nextapp.agerivi.mongodb.net/align-four";
+const uri = process.env.URI;
 const port = process.env.PORT;
-main();
 
 app.use(cors());
 app.use(express.json());
+main();
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function () {
-  console.log("connected");
-});
-
-app.get("/getAllUsers", (req, res) => {
-  userModel
-    .find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.post("/api/register", (req, res) => {
+app.post("/api/login", async (req, res) => {
   console.log(req.body);
-  res.json({ status: "ok" });
+
+  const user = await userModel.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  });
+
+  if (user) {
+    res.json({ status: "ok", user: true });
+  } else {
+    res.json({ status: "error", user: false });
+  }
+});
+app.post("/api/register", async (req, res) => {
+  console.log(req.body);
+  try {
+    const user = await userModel.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    res.json({ status: "ok" });
+    user.save();
+  } catch {
+    res.json({ status: "error" });
+  }
 });
 
 app.listen(port, () => {
