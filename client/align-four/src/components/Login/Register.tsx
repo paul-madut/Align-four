@@ -7,6 +7,7 @@ function Register() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
 
   async function registerUser(e:any){
     e.preventDefault();
@@ -16,6 +17,7 @@ function Register() {
         'Content-Type': 'application/json'
       }, body: JSON.stringify({
         name: name,
+        userName: userName,
         email: email,
         password: password
       })
@@ -32,6 +34,12 @@ function Register() {
                 <label className="label">
                   Name
                   <input value={name} className="input" type="text" onChange={(e) => setName(e.target.value)} required/>
+                </label>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  Username
+                  <input value={userName} className="input" type="text" onChange={(e) => setUserName(e.target.value)} required/>
                 </label>
               </div>
               <div className="form-control">

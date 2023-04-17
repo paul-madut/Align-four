@@ -31,6 +31,7 @@ app.post("/api/register", async (req, res) => {
   try {
     const user = await userModel.create({
       name: req.body.name,
+      userName: req.body.userName,
       email: req.body.email,
       password: req.body.password,
     });

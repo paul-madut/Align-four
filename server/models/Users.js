@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
   userName: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -17,6 +18,9 @@ const UserSchema = new mongoose.Schema({
   },
   score: {
     type: Array,
+  },
+  password: {
+    type: String,
     required: true,
   },
 });
