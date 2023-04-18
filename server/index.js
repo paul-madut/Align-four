@@ -15,10 +15,9 @@ main();
 app.post("/api/login", async (req, res) => {
   console.log(req.body);
 
-  const user = await userModel.findOne({
-    email: req.body.email,
-    password: req.body.password,
-  });
+  const user = await userModel.findOne({}).exec();
+
+  console.log(user);
 
   if (user) {
     res.json({ status: "ok", user: true });
