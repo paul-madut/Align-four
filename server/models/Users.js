@@ -27,10 +27,20 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
   }
   next();
 });
+
+function validateUser(hash) {
+  bcrypt.compare(hash, this.password, function (err, res) {
+    if (err) {
+      console.log(err);
+    }
+    return res;
+  });
+}
 
 const userModel = mongoose.model("users", UserSchema);
 module.exports = userModel;

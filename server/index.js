@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const userModel = require("./models/Users");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const app = express();
@@ -15,11 +17,18 @@ main();
 app.post("/api/login", async (req, res) => {
   console.log(req.body);
 
-  const user = await userModel.findOne({}).exec();
+  const user = await userModel
+    .findOne({
+      userName: req.body.userName,
+    })
+    .exec();
+  if (user == null) {
+    return res.json({ status: "error", user: false });
+  }
 
-  console.log(user);
+  const validated = await validateUser(req.body.password, user.password);
 
-  if (user) {
+  if (user != null && validated) {
     res.json({ status: "ok", user: true });
   } else {
     res.json({ status: "error", user: false });
@@ -51,4 +60,9 @@ async function main() {
     useUnifiedTopology: true,
   }).then;
   console.log("db connected");
+}
+
+async function validateUser(password, hash) {
+  const validated = await bcrypt.compare(password, hash);
+  return validated;
 }
