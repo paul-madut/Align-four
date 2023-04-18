@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .board-col{
-    @apply bg-blue-400 h-full w-full items-center;
+    @apply h-full w-full items-center;
 }
 
 .board-col:hover{
